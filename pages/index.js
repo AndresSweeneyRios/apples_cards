@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { home } from './index.sass'
 
 export default () => {
-    const [text, setText] = useState("loading")
+    const [text, setText] = useState("loading...")
 
-    useEffect(async () => {
-        const helloworld = await fetch('/api/helloworld')
-        setText(await helloworld.text())
+    useEffect(() => {
+        axios('/api/helloworld').then(
+            ({ data }) => setText(data)
+        ).catch( console.error )
     }, [])
 
     return (
-        <div>{ text }</div>
+        <div className={ home }>{ text }</div>
     )
 }
