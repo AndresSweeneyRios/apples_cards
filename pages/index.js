@@ -2,16 +2,30 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { home } from './index.sass'
 
-export default () => {
-    const [text, setText] = useState("loading...")
+export default ({ ws, nickname, setNickname }) => {
+    const [nicknameInput, setNicknameInput] = useState('')
+
+    const submitNickname = (string) => {
+        axios(`/api/nickname/set/${string}`).then(
+            () => setNickname(nicknameInput)
+        ).catch(console.error)
+    }
 
     useEffect(() => {
-        axios('/api/helloworld').then(
-            ({ data }) => setText(data)
-        ).catch( console.error )
-    }, [])
+        setNicknameInput(nickname || '')
+    }, [nickname])
 
     return (
-        <div className={ home }>{ text }</div>
+        <div className={ home }>
+            <h1>Apple's Cards</h1>
+
+            <div>
+                <input onChange={
+                    ({ target }) => setNicknameInput(target.value)
+                } value={nicknameInput} />
+
+                <button onClick={() => submitNickname(nicknameInput)}>set nickname</button>
+            </div>
+        </div>
     )
 }

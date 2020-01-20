@@ -1,4 +1,4 @@
-# next_fullstack_template
+# cah
 
 ### Setup
 Clone the repository:
@@ -12,6 +12,7 @@ Create a `.env` file with these values:
 ```env
 PORT=3000
 PROXY_PORT=3001
+WS_PORT=3002
 ```
 
 ### Development

@@ -1,5 +1,27 @@
+@import './colors'
+    
 *, *::before, *::after
     padding: 0
     margin: 0
     box-sizing: border-box
     font-family: Montserrat
+
+input, button
+    outline: none
+    border: none
+    padding: 10px
+    font-size: 15px
+
+button
+    background-color: transparent
+    border: 1px solid var(--white)
+    color: var(--white)
+    cursor: pointer
+
+    &:hover
+        background-color: var(--white)
+        color: var(--black)
+
+input
+    background-color: var(--white)
+    border: 1px solid var(--white)
