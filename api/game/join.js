@@ -1,6 +1,14 @@
 module.exports = (conn, { room }, { rooms }) => {
     if (!conn.verified) return
 
+    if (!rooms[room.id]) return conn.reply({
+        event: 'error',
+        data: {
+            message: `invalid room id: ${room.id}`,
+            fatal: true,
+        }
+    })
+
     conn.room = rooms[room.id]
 
     const { nickname, id } = conn.cookies

@@ -12,7 +12,12 @@ router.get('/create', ({ ws, cookies, cards }, res) => {
 
     if (!owner.nickname || !owner.id) return res.status(401).send('please set your nickname')
 
-    const id = require('uuid/v1')()
+    const generateUniqueId = () => {
+        const id = Math.random().toString(36).substr(2,6)
+        return ws.rooms[id] ? generateUniqueId() : id
+    }
+
+    const id = generateUniqueId() 
 
     ws.rooms[id] = {
         owner,
@@ -57,11 +62,7 @@ router.get('/create', ({ ws, cookies, cards }, res) => {
         }
     }
 
-    res.json({
-        owner,
-        players: [],
-        id,
-    })
+    res.json(ws.rooms[id].safe())
 
     log.success('api/routes/rooms.js', 'Room created')
 })

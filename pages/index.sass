@@ -1,7 +1,7 @@
 .home
     background-color: var(--black)
     color: white
-    padding: 10px
+    padding: 60px
     height: 100vh
     display: flex
     flex-wrap: wrap
@@ -10,12 +10,65 @@
     justify-content: center
 
     h1
-        margin-bottom: 40px
+        margin-bottom: 30px
         font-size: 60px
+        width: 100%
+        text-align: center
+        margin-top: auto
 
     input
-        margin-right: 10px
-        width: 200px
+        width: 250px
+
+    button
+        width: 150px
 
     input, button
         font-size: 16px
+
+    div
+        width: 100%
+        display: flex
+        flex-wrap: wrap
+        align-items: center
+        justify-content: center
+
+        span, a
+            font-size: 14px
+
+        &:last-child
+            margin-top: auto
+
+        @media (min-width: 800px)
+
+            &:not(.vertical) > *:not(:last-child):not(span)
+                margin-right: 10px
+
+        span
+            margin-right: 5px
+
+    .vertical
+        flex-direction: column
+
+        input, button
+            width: 250px
+
+    .or
+        display: flex
+        flex-direction: row
+        algin-items: center
+        justify-content: center
+        opacity: 0.5
+        margin: 20px 0
+
+        &::before, &::after
+            content: ''
+            width: 15px
+            display: inline-block
+            height: 1px
+            margin: auto 5px
+            background-color: var(--white)
+
+    @media (max-width: 800px)
+        input, button, .roomCode
+            width: 100%
+            margin-bottom: 10px

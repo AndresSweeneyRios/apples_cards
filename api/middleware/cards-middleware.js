@@ -1,17 +1,12 @@
 const cards = require('./cards')
 
-const shuffle = (array) => {
-    let counter = array.length
-
-    while (counter > 0) {
-        let index = Math.floor(Math.random() * counter)
-        counter--
-        let temp = array[counter]
-        array[counter] = array[index]
-        array[index] = temp
+const shuffle = (a) => {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        [a[i], a[j]] = [a[j], a[i]]
     }
-
-    return array
+    
+    return a
 }
 
 module.exports = (req, res, next) => {

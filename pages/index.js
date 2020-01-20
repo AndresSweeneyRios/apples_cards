@@ -1,31 +1,18 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-import { home } from './index.sass'
+import styles from './index.sass'
+import RoomForm from '../components/home/room'
+import NicknameForm from '../components/home/nickname'
 
-export default ({ ws, nickname, setNickname }) => {
-    const [nicknameInput, setNicknameInput] = useState('')
+export default ({ nickname, setNickname, connected, ws }) => {
+    return <>
+        <div className={ styles.home }>
+            <h1>apple's cards</h1>
 
-    const submitNickname = (string) => {
-        axios(`/api/nickname/set/${string}`).then(
-            () => setNickname(nicknameInput)
-        ).catch(console.error)
-    }
-
-    useEffect(() => {
-        setNicknameInput(nickname || '')
-    }, [nickname])
-
-    return (
-        <div className={ home }>
-            <h1>Apple's Cards</h1>
-
-            <div>
-                <input onChange={
-                    ({ target }) => setNicknameInput(target.value)
-                } value={nicknameInput} />
-
-                <button onClick={() => submitNickname(nicknameInput)}>set nickname</button>
-            </div>
+            { connected || nickname === false 
+                ? nickname 
+                    ? <RoomForm { ...{styles, ws, nickname, setNickname} } />
+                    : <NicknameForm { ...{nickname, setNickname} } />
+                : <div>loading..</div> 
+            }
         </div>
-    )
+    </>
 }

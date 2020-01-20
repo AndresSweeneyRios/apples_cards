@@ -7,6 +7,7 @@ import '../sass/global.sass'
 export default ({ Component, pageProps }) => {
     const [ws, setWs] = useState({ open: false })
     const [nickname, setNickname] = useState(null)
+    const [connected, setConnected] = useState(false)
 
     useEffect(() => {
         if (process.browser) {
@@ -17,7 +18,7 @@ export default ({ Component, pageProps }) => {
     useEffect(() => {
         axios('/api/nickname/get').then(
             ({ data }) => setNickname(data.nickname)
-        ).catch()
+        ).catch(() => setNickname(false))
     }, [])
 
     useEffect(() => {
@@ -28,6 +29,8 @@ export default ({ Component, pageProps }) => {
                         event: 'connect',
                         data: { token },
                     })
+
+                    ws.on('connected', () => setConnected(true))
                 }
             ).catch(console.error)
         }
@@ -40,7 +43,13 @@ export default ({ Component, pageProps }) => {
                 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
                 <meta name="theme-color" content="#272727"></meta> 
             </Head>
-            <Component {...pageProps} ws={ws} nickname={nickname} setNickname={setNickname} />
+            <Component 
+                {...pageProps} 
+                ws={ws} 
+                nickname={nickname} 
+                setNickname={setNickname} 
+                connected={connected}
+            />
         </>
     )
 }

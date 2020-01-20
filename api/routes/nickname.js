@@ -3,6 +3,7 @@ const router = require('express').Router()
 router.get('/set/:nickname', (req, res) => {
     const { nickname } = req.params
 
+    if (nickname.length < 1) return res.status(400).send('minimum length for nicknames is 1')
     if (nickname.length > 64) return res.status(400).send('maximum length for nicknames is 64')
 
     res.cookie('nickname', nickname)
@@ -20,6 +21,13 @@ router.get('/get', (req, res) => {
     if (!nickname || !id) return res.status(401).send('must be authorized')
 
     res.json({ nickname })
+})
+
+router.get('/clear', (req, res) => {
+    res.clearCookie('nickname')
+    res.clearCookie('id')
+
+    res.end()
 })
 
 module.exports = router

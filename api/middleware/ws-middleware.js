@@ -33,7 +33,9 @@ wss.on('connection', ws => {
         } catch { 
             return ws.reply({ 
                 event: 'error', 
-                data: 'malformed json' 
+                data: {
+                    message: 'malformed json' 
+                }
             })
         }
 
@@ -41,7 +43,9 @@ wss.on('connection', ws => {
 
         if (!event) return ws.reply({ 
             event: 'error', 
-            data: 'no event provided' 
+            data: {
+                message: 'no event provided' 
+            }
         })
 
         for ( const { name, callback, index } of events.filter(Boolean) ) {
