@@ -5,6 +5,15 @@
     margin: 0
     box-sizing: border-box
     font-family: Montserrat
+    scrollbar-width: thin
+    scrollbar-color: var(--white) var(--darkgray)
+
+\:global(::-webkit-scrollbar)
+    width: 6px
+    height: 6px
+
+\:global(::-webkit-scrollbar-thumb)
+    background-color: var(--white)
 
 html
     background-color: var(--black)

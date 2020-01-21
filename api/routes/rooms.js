@@ -29,11 +29,17 @@ router.get('/create', ({ ws, cookies, cards, blackDeck, whiteDeck }, res) => {
         blackDeck: blackDeck(),
         whiteDeck: whiteDeck(),
 
-        blackCard: null,
+        blackCard: {
+            text: '',
+            picks: 0,
+        },
+
         whiteCards: [],
 
         timer: 0,
         czar: 0,
+
+        started: false,
 
         locked: false,
 
@@ -61,8 +67,8 @@ router.get('/create', ({ ws, cookies, cards, blackDeck, whiteDeck }, res) => {
         },
 
         safe () {
-            const { owner, players, id, timer, czar, locked, chat } = this
-            return { owner, players, id, timer, czar, locked, chat }
+            const { owner, players, id, timer, czar, started, locked, chat, blackCard } = this
+            return { owner, players, id, timer, czar, started, locked, chat, blackCard }
         }
     }
 
@@ -84,7 +90,7 @@ router.get('/connect', ({ ws, cookies }, res) => {
         if (data.token === token) {
             conn.cookies = cookies
             conn.verified = true
-            conn.reply({ event: 'connected' })
+            conn.reply('connected')
 
             log.success('api/routes/rooms.js', 'Token verified')
 

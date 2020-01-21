@@ -23,7 +23,7 @@ const clearEvent = (index) => events[index] = null
 wss.on('connection', ws => {
     log.success('api/middleware/ws-middleware.js', 'Client connected')
 
-    ws.reply = json => ws.send( JSON.stringify(json) )
+    ws.reply = (event, data) => ws.send( JSON.stringify({ event, data }) )
 
     ws.on('message', message => {
         let json

@@ -1,12 +1,9 @@
 module.exports = (conn, { room }, { rooms }) => {
     if (!conn.verified) return
 
-    if (!rooms[room.id]) return conn.reply({
-        event: 'error',
-        data: {
-            message: `invalid room id: ${room.id}`,
-            fatal: true,
-        }
+    if (!rooms[room.id]) return conn.reply('error', {
+        message: `invalid room id: ${room.id}`,
+        fatal: true,
     })
 
     conn.room = rooms[room.id]
@@ -47,19 +44,13 @@ module.exports = (conn, { room }, { rooms }) => {
             cards,
         })
 
-        conn.room.broadcast({
-            event: 'join',
-            data: {
-                players: conn.room.players,
-            }
+        conn.room.broadcast('room-update', {
+            players: conn.room.players,
         })
 
-        conn.reply({
-            event: 'deal',
-            data: {
-                room: conn.room.safe(),
-                cards,
-            }
+        conn.reply('deal', {
+            room: conn.room.safe(),
+            cards,
         })
 
         conn.room.message(`<b>${nickname}</b> has joined the game.`)

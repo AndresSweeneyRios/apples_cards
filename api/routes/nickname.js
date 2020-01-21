@@ -12,7 +12,7 @@ router.get('/set/:nickname', (req, res) => {
 
     res.cookie('id', id)
 
-    res.json({ nickname })
+    res.json({ nickname, id })
 })
 
 router.get('/get', (req, res) => {
@@ -20,7 +20,7 @@ router.get('/get', (req, res) => {
 
     if (!nickname || !id) return res.status(401).send('must be authorized')
 
-    res.json({ nickname })
+    res.json({ nickname, id })
 })
 
 router.get('/clear', (req, res) => {

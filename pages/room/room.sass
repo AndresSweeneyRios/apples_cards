@@ -8,15 +8,15 @@
     .mobileHand
         display: none
 
-    .slot
+    .slot, .card
         height: 210px
         width: 170px
+
+    .slot
         background-color: rgba(white, 0.15)
         border-radius: 5px
 
     .card
-        height: 210px
-        width: 170px
         padding: 15px
         background-color: white
         border-radius: 5px
@@ -45,13 +45,12 @@
 
         .picks
             display: flex
+            flex-wrap: wrap
+            justify-content: center
+            align-items: center
 
             .slot
-                margin: 10px
-
-    .hand, .mobileHand
-        scrollbar-width: thin
-        scrollbar-color: var(--white) var(--darkgray)
+                margin: 5px
 
     .hand, .mobileHand, .nav
         background-color: var(--darkgray)
@@ -61,7 +60,7 @@
             height: 100%
 
         .nav
-            width: 50px
+            display: none
 
         .hand
             width: 210px
@@ -80,6 +79,10 @@
             margin-right: -290px
             right: 290px
             pointer-events: none
+            padding: 20px
+
+            h3
+                margin-bottom: 5px
 
 
     @media (max-width: 800px)
@@ -106,3 +109,26 @@
                 width: 10px
                 height: 50px
                 display: block
+                
+            .slot, .card
+                height: 160px
+                width: 130px
+                font-size: 9px
+
+        .chat
+            display: none
+
+        .nav
+            display: block
+            width: 100vw
+            height: 70px
+            background-color: var(--darkgray)
+
+        .game
+            .slot, .card
+                height: 160px
+                width: 130px
+                font-size: 9px
+.label
+    opacity: 0.7
+    margin-right: 5px

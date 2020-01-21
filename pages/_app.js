@@ -7,6 +7,7 @@ import '../sass/global.sass'
 export default ({ Component, pageProps }) => {
     const [ws, setWs] = useState({ open: false })
     const [nickname, setNickname] = useState(null)
+    const [id, setId] = useState(null)
     const [connected, setConnected] = useState(false)
 
     useEffect(() => {
@@ -17,7 +18,10 @@ export default ({ Component, pageProps }) => {
 
     useEffect(() => {
         axios('/api/nickname/get').then(
-            ({ data }) => setNickname(data.nickname)
+            ({ data }) => {
+                setNickname(data.nickname)
+                setId(data.id)
+            }
         ).catch(() => setNickname(false))
     }, [])
 
@@ -27,11 +31,7 @@ export default ({ Component, pageProps }) => {
 
             axios('/api/rooms/connect').then(
                 ({ data: { token } }) => {
-                    ws.send({
-                        event: 'connect',
-                        data: { token },
-                    })
-
+                    ws.send('connect', { token })
                     ws.on('connected', () => setConnected(true))
                 }
             ).catch(console.error)
@@ -51,6 +51,7 @@ export default ({ Component, pageProps }) => {
                 nickname={nickname} 
                 setNickname={setNickname} 
                 connected={connected}
+                id={id}
             />
         </>
     )
