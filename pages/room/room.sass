@@ -1,0 +1,68 @@
+.room
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    height: 100vh
+    overflow: hidden
+
+    .mobileHand
+        display: none
+
+    .card
+        height: 250px
+        width: 200px
+        background-color: white
+        color: var(--black)
+        padding: 15px
+        border-radius: 5px
+
+    .game
+        flex-grow: 1
+        display: flex
+        justify-content: center
+        align-items: center
+        flex-direction: column
+
+        h2
+            font-size: 24px
+
+    .hand, .mobileHand
+        scrollbar-width: thin
+        scrollbar-color: var(--white) var(--darkgray)
+
+    .hand, .mobileHand, .nav
+        background-color: var(--darkgray)
+
+    @media (min-width: 800px)
+        & > div
+            height: 100%
+
+        .nav
+            width: 50px
+
+        .hand
+            width: 240px
+            overflow-y: auto
+            padding: 0 20px
+
+            .card
+                margin-top: 20px
+
+                &:last-child
+                    margin-bottom: 20px
+
+        .chat
+            position: relative
+            width: 290px
+            margin-right: -290px
+            right: 290px
+
+
+    @media (max-width: 800px)
+        flex-direction: column
+
+        .hand
+            display: none
+
+        .mobileHand
+            display: flex

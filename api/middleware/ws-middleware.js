@@ -41,6 +41,8 @@ wss.on('connection', ws => {
 
         const { event, data } = json
 
+        console.log({ event, data })
+
         if (!event) return ws.reply({ 
             event: 'error', 
             data: {

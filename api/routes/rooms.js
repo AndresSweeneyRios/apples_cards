@@ -2,7 +2,7 @@ const router = require('express').Router()
 
 const log = require('../../log')
 
-router.get('/create', ({ ws, cookies, cards }, res) => {
+router.get('/create', ({ ws, cookies, cards, blackDeck, whiteDeck }, res) => {
     const getOwner = () => {
         const { nickname, id } = cookies
         return { nickname, id }
@@ -13,7 +13,7 @@ router.get('/create', ({ ws, cookies, cards }, res) => {
     if (!owner.nickname || !owner.id) return res.status(401).send('please set your nickname')
 
     const generateUniqueId = () => {
-        const id = Math.random().toString(36).substr(2,6)
+        const id = Math.random().toString(36).substr(2,4)
         return ws.rooms[id] ? generateUniqueId() : id
     }
 
@@ -23,10 +23,11 @@ router.get('/create', ({ ws, cookies, cards }, res) => {
         owner,
         players: [],
         clients: [],
+        hands: [],
         id,
 
-        blackDeck: cards.blackDeck(),
-        whiteDeck: cards.whiteDeck(),
+        blackDeck: blackDeck(),
+        whiteDeck: whiteDeck(),
 
         blackCard: null,
         whiteCards: [],
@@ -53,7 +54,10 @@ router.get('/create', ({ ws, cookies, cards }, res) => {
         },
 
         broadcast (json) {
-            this.clients.forEach(({ reply })  => reply(json))
+            this.clients.forEach(({ reply }) => {
+                try { reply(json) }
+                catch {}
+            })
         },
 
         safe () {
@@ -65,6 +69,10 @@ router.get('/create', ({ ws, cookies, cards }, res) => {
     res.json(ws.rooms[id].safe())
 
     log.success('api/routes/rooms.js', 'Room created')
+})
+
+router.get('/exists/:id', ({ ws, params }) => {
+    res.json( Boolean(ws.rooms[params.id]) )
 })
 
 router.get('/connect', ({ ws, cookies }, res) => {

@@ -37,7 +37,7 @@ export default ({ ws, setWs }) => {
 
         for ( const { name, callback, index } of events.filter(Boolean) ) {
             if (event.includes(name)) {
-                const { clear } = callback(ws, data) || {}
+                const { clear } = callback(data) || {}
                 if (clear) clearEvent(index)
             }
         }

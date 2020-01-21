@@ -5,6 +5,12 @@ const events = [
 
 module.exports = ({ rooms, on }) => {
     events.forEach(
-        ([name, callback]) => on(name, (conn, data) => callback(conn, data, { rooms }))
+        ([name, callback]) => on(name, (conn, data) => {
+            try {
+                callback(conn, data, { rooms })
+            } catch (error) {
+                console.error(error)
+            }
+        })
     )
 }

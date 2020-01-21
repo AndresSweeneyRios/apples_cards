@@ -23,6 +23,8 @@ export default ({ Component, pageProps }) => {
 
     useEffect(() => {
         if (ws.open && nickname) {
+            ws.on('error', console.error)
+
             axios('/api/rooms/connect').then(
                 ({ data: { token } }) => {
                     ws.send({
