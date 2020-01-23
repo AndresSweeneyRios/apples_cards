@@ -51,17 +51,12 @@ router.get('/create', ({ ws, cookies, cards, blackDeck, whiteDeck }, res) => {
                 content,
             })
 
-            this.broadcast({
-                event: 'message',
-                data: {
-                    content
-                },
-            })
+            this.broadcast('message', { content, server: true })
         },
 
-        broadcast (json) {
+        broadcast (event, data) {
             this.clients.forEach(({ reply }) => {
-                try { reply(json) }
+                try { reply(event, data) }
                 catch {}
             })
         },
@@ -79,7 +74,7 @@ router.get('/create', ({ ws, cookies, cards, blackDeck, whiteDeck }, res) => {
 
 router.get('/exists/:id', ({ ws, params }) => {
     res.json( Boolean(ws.rooms[params.id]) )
-})
+}) 
 
 router.get('/connect', ({ ws, cookies }, res) => {
     const token = require('uuid/v1')()

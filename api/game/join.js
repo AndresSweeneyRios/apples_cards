@@ -22,12 +22,9 @@ module.exports = (conn, { room }, { rooms }) => {
             1
         )
 
-        conn.reply({
-            event: 'deal',
-            data: {
-                room: conn.room.safe(),
-                cards: conn.room.hands.find( hand => hand.id === id ).cards,
-            }
+        conn.reply('deal', {
+            room: conn.room.safe(),
+            cards: conn.room.hands.find( hand => hand.id === id ).cards,
         })
     } else {
         conn.room.players.push({ 

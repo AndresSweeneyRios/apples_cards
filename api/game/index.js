@@ -1,6 +1,7 @@
 const events = [
     ['join', require('./join')],
     ['message', require('./message')],
+    ['start', require('./start')],
 ]
 
 module.exports = ({ rooms, on }) => {

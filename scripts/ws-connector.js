@@ -1,4 +1,4 @@
-export default ({ ws, setWs }) => {
+export default ({ setWs }) => {
     const events = []
     const client = new WebSocket( `ws://${window.location.hostname}:${process.env.WS_PORT}`)
 
@@ -19,6 +19,7 @@ export default ({ ws, setWs }) => {
     client.onopen = () => {
         setWs({
             open: true,
+            connected: false,
             send,
             on,
         })
@@ -34,6 +35,8 @@ export default ({ ws, setWs }) => {
         }
 
         const { event, data } = json
+
+        console.log(event)
 
         for ( const { name, callback, index } of events.filter(Boolean) ) {
             if (event.includes(name)) {

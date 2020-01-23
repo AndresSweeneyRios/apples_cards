@@ -5,7 +5,7 @@ import WSConnector from '../scripts/ws-connector'
 import '../sass/global.sass'
 
 export default ({ Component, pageProps }) => {
-    const [ws, setWs] = useState({ open: false })
+    const [ws, setWs] = useState({ open: false, connected: false })
     const [nickname, setNickname] = useState(null)
     const [id, setId] = useState(null)
     const [connected, setConnected] = useState(false)
@@ -26,13 +26,15 @@ export default ({ Component, pageProps }) => {
     }, [])
 
     useEffect(() => {
-        if (ws.open && nickname) {
+        if (ws.open && nickname && !ws.connected) {
             ws.on('error', console.error)
 
             axios('/api/rooms/connect').then(
                 ({ data: { token } }) => {
                     ws.send('connect', { token })
-                    ws.on('connected', () => setConnected(true))
+                    ws.on('connected', () => {
+                        setWs({ ...ws, connected: true })
+                    })
                 }
             ).catch(console.error)
         }

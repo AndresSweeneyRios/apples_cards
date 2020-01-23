@@ -29,8 +29,12 @@
         & > *
             pointer-events: none
 
-    .card > small
-        font-size: 11px
+        small
+            font-size: 11px
+            opacity: 0.7
+
+        b
+            font-weight: 200
 
     .game
         flex-grow: 1
@@ -42,6 +46,12 @@
         h2
             font-size: 24px
             margin-bottom: 20px
+            text-align: center
+
+            small
+                opacity: 0.5
+                font-size: 16px
+                font-weight: 200
 
         .picks
             display: flex
@@ -52,7 +62,7 @@
             .slot
                 margin: 5px
 
-    .hand, .mobileHand, .nav
+    .hand, .mobileHand, .nav, .chat
         background-color: var(--darkgray)
 
     @media (min-width: 800px)
@@ -74,16 +84,39 @@
                     margin-bottom: 20px
 
         .chat
-            position: relative
-            width: 290px
-            margin-right: -290px
-            right: 290px
+            width: 210px
             pointer-events: none
-            padding: 20px
+            display: flex
+            flex-direction: column
+
+            .scoreboard
+                padding: 20px
 
             h3
                 margin-bottom: 5px
 
+            h4
+                font-weight: 200
+
+            .log
+                margin-top: auto
+                width: 100%
+
+            .send
+                display: flex
+                width: 100%
+                pointer-events: all
+                justify-contet: center
+                align-items: center
+
+                button
+                    width: 70px
+
+                input
+                    width: 100%
+
+                button, input
+                    font-size: 12px
 
     @media (max-width: 800px)
         flex-direction: column
@@ -109,10 +142,13 @@
                 width: 10px
                 height: 50px
                 display: block
-                
-            .slot, .card
-                height: 160px
-                width: 130px
+
+        .slot, .card
+            height: 160px
+            width: 130px
+            font-size: 10px
+
+            small
                 font-size: 9px
 
         .chat
@@ -124,11 +160,6 @@
             height: 70px
             background-color: var(--darkgray)
 
-        .game
-            .slot, .card
-                height: 160px
-                width: 130px
-                font-size: 9px
 .label
     opacity: 0.7
     margin-right: 5px
