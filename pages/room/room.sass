@@ -91,16 +91,17 @@
 
             .scoreboard
                 padding: 20px
+                margin-bottom: auto
+
+                h5
+                    font-size: 15px
+                    font-weight: 200
 
             h3
                 margin-bottom: 5px
 
             h4
                 font-weight: 200
-
-            .log
-                margin-top: auto
-                width: 100%
 
             .send
                 display: flex
@@ -163,3 +164,32 @@
 .label
     opacity: 0.7
     margin-right: 5px
+
+.log
+    padding: 20px
+    height: 35%
+    overflow: auto
+    pointer-events: all
+    position: relative
+
+    .serverMessage
+        opacity: 0.5
+        font-size: 10px
+
+    p
+        font-size: 12px
+        margin-top: 5px
+
+        &:last-child
+            margin-bottom: 20px
+
+.shadow
+    position: relative
+    z-index: 2
+    pointer-events: none
+    height: 50px
+    margin-bottom: -50px
+    width: calc(100% - 7px)
+    content: ''
+    top: 0
+    background: linear-gradient(var(--darkgray), transparent)

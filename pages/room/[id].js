@@ -61,7 +61,7 @@ export default ({ ws, id }) => {
                 { renderHand() }
                 <div className={styles.end}></div>
             </div>
-            <Sidebar {...{ room }} />
+            <Sidebar {...{ ws, room }} />
             {/* <div className={styles.nav}></div> */}
         </div>
     </>

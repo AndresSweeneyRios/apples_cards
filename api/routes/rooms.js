@@ -83,7 +83,8 @@ router.get('/connect', ({ ws, cookies }, res) => {
 
     ws.on('connect', (conn, data) => {
         if (data.token === token) {
-            conn.cookies = cookies
+            const { nickname, id } = cookies
+            conn.cookies = { nickname, id }
             conn.verified = true
             conn.reply('connected')
 

@@ -1,4 +1,4 @@
 {
     "verbose": false,
-    "ignore": ["pages", "server.js"]
+    "ignore": ["pages", "components", "server.js"]
 }
