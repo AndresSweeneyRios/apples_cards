@@ -4,6 +4,7 @@ import styles from './room.sass'
 import Hand from '../../components/room/hand'
 import Game from '../../components/room/game'
 import Sidebar from '../../components/room/sidebar'
+import Chat from '../../components/room/chat'
 
 export default ({ ws, id }) => {
     const router = useRouter()
@@ -33,16 +34,15 @@ export default ({ ws, id }) => {
                 Object.assign(localRoom, room)
                 setRoom(room)
                 if (room.blackCard) setPicks(
-                    new Array(room.blackCard.picks).fill({})
+                    new Array(room.blackCard.pick).fill().map( _ => ({}) )
                 )
             })
 
             ws.on('room-update', (data) => {
                 Object.assign(localRoom, data)
-                console.log(data)
                 setRoom(localRoom)
                 if (data.blackCard) setPicks(
-                    new Array(data.blackCard.picks).fill({})
+                    new Array(data.blackCard.pick).fill().map( _ => ({}) )
                 )
             })
         }
@@ -51,18 +51,19 @@ export default ({ ws, id }) => {
 
     /* put a bar on the bottom of the mobile layout for navigation */
 
-    const renderHand = () => Hand({ hand, picks, setPicks })
+    // const renderHand = () => Hand({ hand, picks, setPicks })
 
     return <>
-        <div className={styles.room}>
+        {/* <div className={styles.room}>
             <div className={styles.hand}>{ renderHand() }</div>
             <Game {...{ ws, room, picks, setPicks, id }} />
             <div className={styles.mobileHand}>
                 { renderHand() }
                 <div className={styles.end}></div>
             </div>
-            <Sidebar {...{ ws, room }} />
-            {/* <div className={styles.nav}></div> */}
-        </div>
+            <Sidebar {...{ room }} />
+            <Chat {...{ ws }} />
+            <div className={styles.nav}></div>
+        </div> */}
     </>
 }

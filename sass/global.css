@@ -1,0 +1,76 @@
+html {
+  --black: rgb(30,25,30);
+  --white: rgb(240,240,240);
+  --darkgray: rgb(40,35,50);
+  --link: cyan;
+}
+
+*, *::before, *::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Manrope;
+  scrollbar-width: thin;
+  scrollbar-color: var(--white) var(--darkgray);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--white);
+}
+
+html {
+  background-color: var(--black);
+  color: white;
+  height: 100vh;
+  overflow: hidden;
+}
+
+input, button {
+  outline: none;
+  border: none;
+  padding: 10px;
+  font-size: 15px;
+}
+
+button {
+  background-color: transparent;
+  border: 1px solid var(--white);
+  color: var(--white);
+  cursor: pointer;
+}
+button:hover {
+  background-color: var(--white);
+  color: var(--black);
+}
+
+input {
+  background-color: var(--white);
+  border: 1px solid var(--white);
+}
+
+a {
+  color: var(--link);
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#__next-prerender-indicator {
+  display: none;
+}
+
+hr {
+  outline: none;
+  border: none;
+  height: 1px;
+  background-color: var(--white);
+  margin: 5px 0;
+  opacity: 0.5;
+}

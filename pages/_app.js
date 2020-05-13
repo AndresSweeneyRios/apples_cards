@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import axios from 'axios'
 import WSConnector from '../scripts/ws-connector'
-import '../sass/global.sass'
+import '../sass/global.css'
 
 export default ({ Component, pageProps }) => {
     const [ws, setWs] = useState({ open: false, connected: false })
@@ -44,7 +44,7 @@ export default ({ Component, pageProps }) => {
         <>
             <Head>
                 <title>CAH</title>
-                <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+                <link href="https://fonts.googleapis.com/css?family=Manrope" rel="stylesheet" />
                 <meta name="theme-color" content="#272727"></meta> 
             </Head>
             <Component 

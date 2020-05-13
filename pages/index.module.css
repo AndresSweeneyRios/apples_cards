@@ -1,0 +1,95 @@
+.home {
+  background-color: var(--black);
+  color: white;
+  padding: 60px;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home h1 {
+  margin-bottom: 30px;
+  font-size: 60px;
+  width: 100%;
+  text-align: center;
+  margin-top: auto;
+}
+
+.home input {
+  width: 250px;
+}
+
+.home button {
+  width: 150px;
+}
+
+.home input, .home button {
+  font-size: 16px;
+}
+
+.home div {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.home div span, .home div a {
+  font-size: 14px;
+}
+
+.home div:last-child {
+  margin-top: auto;
+}
+
+@media (min-width: 800px) {
+  .home div:not(.vertical) > *:not(:last-child):not(span) {
+    margin-right: 10px;
+  }
+
+}
+
+.home div span {
+  margin-right: 5px;
+}
+
+.home .vertical {
+  flex-direction: column;
+}
+
+.home .vertical input, .home .vertical button {
+  width: 250px;
+}
+
+.home .or {
+  display: flex;
+  flex-direction: row;
+  algin-items: center;
+  justify-content: center;
+  opacity: 0.5;
+  margin: 20px 0;
+}
+
+.home .or::before, .home .or::after {
+  content: "";
+  width: 15px;
+  display: inline-block;
+  height: 1px;
+  margin: auto 5px;
+  background-color: var(--white);
+}
+
+@media (max-width: 800px) {
+  .home input, .home button, .home .roomCode {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+}
+
+
+/*# sourceMappingURL=index.css.map */

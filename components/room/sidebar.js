@@ -62,10 +62,10 @@ export default ({ ws, room }) => {
                     </h5>
                 )
             }
-            {/* { room.czar !== undefined ? <h4><span className={styles.label}>czar:</span> {room.players[room.czar].nickname}</h4> : ''} */}
+            { room.czar !== undefined ? <h4 className={styles.czar}><span className={styles.label}>czar:</span> {room.players[room.czar].nickname}</h4> : ''}
         </div>
 
-        <div className={styles.shadow} />
+        {/* <div className={styles.shadow} /> */}
 
         <div className={styles.log}>
             {chat.map(({ content, player, server }, index) => server 

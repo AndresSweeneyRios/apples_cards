@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
-    "dev": "concurrently -r \"yarn:express:dev\" \"yarn:next:dev\"",
+    "dev": "multiscript yarn express:dev + yarn next:dev",
     "start": "cross-env yarn next:export && yarn express:start",
     "express:dev": "cross-env NODE_ENV=development nodemon -q api/index.js",
     "express:start": "cross-env NODE_ENV=production node api/index.js",
@@ -19,7 +19,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "http-proxy-middleware": "^0.20.0",
-    "next": "^9.1.7",
+    "next": "^9.4.0",
     "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -29,6 +29,7 @@
   "devDependencies": {
     "concurrently": "^5.0.2",
     "cross-env": "^6.0.3",
+    "multiscript": "^0.1.8",
     "nodemon": "^2.0.2"
   }
 }

@@ -1,4 +1,4 @@
-import styles from './index.sass'
+import styles from './index.module.css'
 import RoomForm from '../components/home/room'
 import NicknameForm from '../components/home/nickname'
 
@@ -7,12 +7,12 @@ export default ({ nickname, setNickname, ws }) => {
         <div className={ styles.home }>
             <h1>apple's cards</h1>
 
-            { ws.connected || nickname === false 
+            {/* { ws.connected || nickname === false 
                 ? nickname 
                     ? <RoomForm { ...{styles, ws, nickname, setNickname} } />
                     : <NicknameForm { ...{nickname, setNickname} } />
                 : <div>loading..</div> 
-            }
+            } */}
         </div>
     </>
 }
