@@ -1,4 +1,4 @@
 {
     "verbose": false,
-    "ignore": ["pages", "components", "server.js"]
+    "ignore": ["src", "webpack.config.js"]
 }

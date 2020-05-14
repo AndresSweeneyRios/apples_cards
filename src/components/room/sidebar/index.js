@@ -1,3 +1,5 @@
+import React from 'react'
+
 import styles from './sidebar.sass'
 import Player from '../player'
 

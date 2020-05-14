@@ -1,14 +1,13 @@
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/router'
+import React, { useState, useEffect } from 'react'
+import { withRouter } from 'react-router-dom'
+
 import styles from './room.sass'
 import Hand from '../../components/room/hand'
 import Game from '../../components/room/game'
 import Sidebar from '../../components/room/sidebar'
 import Chat from '../../components/room/chat'
 
-export default ({ ws, id }) => {
-    const router = useRouter()
-
+const Room = ({ ws, id, match }) => {
     const [hand, setHand] = useState([])
     const [picks, setPicks] = useState([])
     
@@ -23,7 +22,7 @@ export default ({ ws, id }) => {
 
     useEffect(() => {
         if (ws.connected) {
-            const { id } = router.query
+            const { id } = match.params
 
             const localRoom = room
 
@@ -51,10 +50,10 @@ export default ({ ws, id }) => {
 
     /* put a bar on the bottom of the mobile layout for navigation */
 
-    // const renderHand = () => Hand({ hand, picks, setPicks })
+    const renderHand = () => Hand({ hand, picks, setPicks })
 
     return <>
-        {/* <div className={styles.room}>
+        <div className={styles.room}>
             <div className={styles.hand}>{ renderHand() }</div>
             <Game {...{ ws, room, picks, setPicks, id }} />
             <div className={styles.mobileHand}>
@@ -63,7 +62,9 @@ export default ({ ws, id }) => {
             </div>
             <Sidebar {...{ room }} />
             <Chat {...{ ws }} />
-            <div className={styles.nav}></div>
-        </div> */}
+            {/* <div className={styles.nav}></div> */}
+        </div>
     </>
 }
+
+export default withRouter(Room)

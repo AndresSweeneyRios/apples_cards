@@ -1,6 +1,6 @@
 import Card from './card'
 import styles from '../../pages/room/room.sass'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default ({ picks, setPicks, hand }) => {
     return hand.map(

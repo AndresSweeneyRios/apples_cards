@@ -7,9 +7,10 @@ const routes = require('./routes')
 const wsMiddleware = require('./middleware/ws-middleware')
 const cardsMiddleware = require('./middleware/cards-middleware')
 const log = require('../log')
+const config = require('../config')
 const app = express()
 
-const { NODE_ENV, PORT, PROXY_PORT } = process.env
+const { NODE_ENV } = process.env
 
 app.use( 
     express.json(),
@@ -21,11 +22,11 @@ app.use(
 app.use( '/api', routes )
 
 if (NODE_ENV === 'development') {
-    app.listen(PROXY_PORT)
-    log.success('api/index.js', `Development server started on port ${PROXY_PORT}`)
+    app.listen(config.backendPort)
+    log.success('api/index.js', `Development server started on port ${config.backendPort}`)
 } else {
     app.use('/', express.static(path.resolve('out')))
     app.use('*', (req, res) => res.sendFile(path.resolve('out', 'index.html')))
-    app.listen(PORT)
-    log.success('api/index.js', `Production server started on port ${PORT}`)
+    app.listen(config.port)
+    log.success('api/index.js', `Production server started on port ${config.port}`)
 }

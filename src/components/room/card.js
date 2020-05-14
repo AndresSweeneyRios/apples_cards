@@ -1,3 +1,5 @@
+import React from 'react'
+
 import styles from '../../pages/room/room.sass'
 
 export default  (content, index, { slotProps, ...restProps } = {}) => <div 

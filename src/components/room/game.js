@@ -1,3 +1,5 @@
+import React from 'react'
+
 import Card from './card'
 import styles from '../../pages/room/room.sass'
 

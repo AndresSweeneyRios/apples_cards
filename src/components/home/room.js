@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
-import Router from 'next/router'
+import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 
-export default ({ ws, styles, nickname, setNickname }) => {
+const Room = ({ ws, styles, nickname, setNickname, history }) => {
     const [roomIdInput, setRoomIdInput] = useState('')
 
     const clearNickname = () => {
@@ -18,7 +18,7 @@ export default ({ ws, styles, nickname, setNickname }) => {
     const joinRoom = (id) => {
         axios(`/api/rooms/exists/${id}`).then(({ data: exists }) => {
             if (exists) {
-                Router.push(`/room/${id}`)
+                history.push(`/room/${id}`)
             } else {
                 
             }
@@ -27,7 +27,7 @@ export default ({ ws, styles, nickname, setNickname }) => {
 
     const hostRoom = () => {
         axios(`/api/rooms/create`).then(({ data: room }) => {
-            Router.push(`/room/${room.id}`)
+            history.push(`/room/${room.id}`)
         }).catch(console.error)
     }
 
@@ -48,3 +48,5 @@ export default ({ ws, styles, nickname, setNickname }) => {
         </div>
     </>
 }
+
+export default withRouter(Room)

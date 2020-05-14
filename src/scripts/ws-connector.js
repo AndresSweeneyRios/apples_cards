@@ -1,6 +1,8 @@
+import config from 'config'
+
 export default ({ setWs }) => {
     const events = []
-    const client = new WebSocket( `ws://${window.location.hostname}:${process.env.WS_PORT}`)
+    const client = new WebSocket(`ws://${window.location.hostname}:${config.wsPort}`)
 
     const send = (event, data) => {
         client.send(JSON.stringify({ event, data }))

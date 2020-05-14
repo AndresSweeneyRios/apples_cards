@@ -1,10 +1,20 @@
-import { useState, useEffect } from 'react'
-import Head from 'next/head'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import WSConnector from '../scripts/ws-connector'
-import '../sass/global.css'
 
-export default ({ Component, pageProps }) => {
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom"
+
+import WSConnector from '../scripts/ws-connector.js'
+
+import Home from './home'
+import Room from './room'
+
+import '@/sass/global.sass'
+
+export default () => {
     const [ws, setWs] = useState({ open: false, connected: false })
     const [nickname, setNickname] = useState(null)
     const [id, setId] = useState(null)
@@ -40,21 +50,22 @@ export default ({ Component, pageProps }) => {
         }
     }, [ws, nickname])
 
-    return (
-        <>
-            <Head>
-                <title>CAH</title>
-                <link href="https://fonts.googleapis.com/css?family=Manrope" rel="stylesheet" />
-                <meta name="theme-color" content="#272727"></meta> 
-            </Head>
-            <Component 
-                {...pageProps} 
-                ws={ws} 
-                nickname={nickname} 
-                setNickname={setNickname} 
-                connected={connected}
-                id={id}
-            />
-        </>
-    )
+    const props = {
+        ws,
+        nickname,
+        setNickname,
+        connected,
+        id,
+    }
+
+    return <Router>
+        <Switch>
+            <Route path="/" exact={true}>
+                <Home {...props}/>
+            </Route>
+            <Route path="/room/:id">
+                <Room {...props}/>
+            </Route>
+        </Switch>
+    </Router>
 }
