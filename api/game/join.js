@@ -50,7 +50,7 @@ module.exports = (conn, { room }, { rooms }) => {
             cards,
         })
 
-        conn.room.message(`<b>${nickname}</b> has joined the game.`)
+        conn.room.message(`${nickname} has joined the game`)
     }
 
     conn.room.clients.push(conn)

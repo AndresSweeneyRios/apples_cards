@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
 import styles from './chat.sass'
-import Player from '../player'
 
-export default ({ ws }) => {
+const Chat = ({ ws, room }) => {
     const [chat, setChat] = useState([])
     const [chatLoaded, setChatLoaded] = useState(false)
     const [hasScrolledChat, setHasScrolledChat] = useState(false)
@@ -20,9 +19,21 @@ export default ({ ws }) => {
     }
 
     const scrollChatToBottom = () => {
-        const lastChild = document.querySelector(`.${styles.log} > p:last-child`)
-        if (lastChild) lastChild.scrollIntoView()
+        if (chat.length > 0 && !hasScrolledChat) {
+            const lastChild = document.querySelector(`.${styles.log} > *:last-child`)
+            lastChild.scrollIntoView()
+        }
     }
+
+    const onScroll = ({ target }) =>{ 
+        setHasScrolledChat(
+            target.scrollTop + target.clientHeight < target.scrollHeight
+        )
+
+        console.log(target.scrollTop + target.clientHeight < target.scrollHeight)
+    }
+
+    useEffect(scrollChatToBottom, [chat])
 
     useEffect(() => {
         if (ws.connected) ws.on('deal', ({ room }) => {
@@ -34,39 +45,38 @@ export default ({ ws }) => {
     useEffect(() => {
         if (!chatLoaded) return
 
-        if (chat.length > 0) scrollChatToBottom()
+        scrollChatToBottom()
 
         ws.on('message', ( message ) => {
             chat.push(message)
             setChat([...chat])
-
-            if (!hasScrolledChat) scrollChatToBottom()
         })
     }, [chatLoaded])
 
-    const Message = ({ children, ...restProps }) => (
-        <div className={styles.message} {...restProps}>{children}</div>
-    )
-
-    const log = () => chat.map(({ 
+    const log = chat.map(({ 
         content, 
         player, 
         server,
-    }, index) => {
-        if (server) {
-            return <Message key={index}>
-                <span className={styles.serverMessage}>content</span>
-            </Message>
-        } else {
-            return <Message key={index}>
-                <Player>{player}</Player>
-                <span>: {content}</span>
-            </Message>
-        }
-    })
+    }, index) => (
+        server 
+            ? <div key={index} className={styles.serverMessage}>{content}</div>
+            : <div key={index}>{player.nickname}: {content}</div>
+    ))
+    
+    const players = room.players.map(
+        ({ nickname, score }, index) => {
+            const isCzar = index === room.czar
 
-    const onScroll = ({ target }) => setHasScrolledChat(
-        target.scrollTop + target.clientHeight < target.scrollHeight
+            const Czar = () => <span className={styles.czar}>czar</span>
+
+            const Score = () => <span className={styles.score}>: {score}</span>
+
+            return <div key={index} className={styles.player}>
+                {nickname}
+                <Score />
+                { isCzar ? <Czar /> : '' }
+            </div>
+        }
     )
 
     return <div className={styles.chat}>
@@ -74,6 +84,15 @@ export default ({ ws }) => {
             { log }
         </div>
         
+        <div className={styles.sidebar}>
+            <div className={styles.players}>
+                <h4>players</h4>
+                { players }
+            </div>
+        </div>
+        
         <input onKeyDown={inputKeydownHandler} placeholder="enter message.." />
     </div>
 }
+
+export default Chat

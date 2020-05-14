@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import styles from './room.sass'
 import Hand from '../../components/room/hand'
 import Game from '../../components/room/game'
-import Sidebar from '../../components/room/sidebar'
+// import Sidebar from '../../components/room/sidebar'
 import Chat from '../../components/room/chat'
 
 const Room = ({ ws, id, match }) => {
@@ -50,19 +50,11 @@ const Room = ({ ws, id, match }) => {
 
     /* put a bar on the bottom of the mobile layout for navigation */
 
-    const renderHand = () => Hand({ hand, picks, setPicks })
-
     return <>
         <div className={styles.room}>
-            <div className={styles.hand}>{ renderHand() }</div>
             <Game {...{ ws, room, picks, setPicks, id }} />
-            <div className={styles.mobileHand}>
-                { renderHand() }
-                <div className={styles.end}></div>
-            </div>
-            <Sidebar {...{ room }} />
-            <Chat {...{ ws }} />
-            {/* <div className={styles.nav}></div> */}
+            <Hand hand={hand} picks={picks} setPicks={setPicks}/>
+            <Chat {...{ ws, room }} />
         </div>
     </>
 }
