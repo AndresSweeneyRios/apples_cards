@@ -30,7 +30,7 @@
     "cross-env": "^6.0.3",
     "html-webpack-plugin": "^4.3.0",
     "multiscript": "^0.1.8",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "nodemon": "^2.0.2",
     "pug": "^2.0.4",
     "pug-loader": "^2.4.0",
